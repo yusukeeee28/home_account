@@ -101,7 +101,7 @@ server.mount_proc("/login"){| req, res |
   check_id =0
   check_pass = 0
   if check ==1 then
-    dbh=DBI.connect('DBI:SQLite3:account.db')
+    dbh=DBI.connect('DBI:PostgreSQL:account.db')
     dbh.select_all("select * from login;") do |row|
       ['ID', 'PASSWORD'].each do |name| 
         p row[name]
@@ -137,7 +137,7 @@ server.mount_proc("/signin"){| req, res |
     template =ERB.new( File.read('nosignup.erb') )
     res.body << template.result( binding )
   elsif check==1 then
-    dbh=DBI.connect('DBI:SQLite3:account.db')
+    dbh=DBI.connect('DBI:PostgreSQL:account.db')
     dbh.do("insert into login values('#{req.query['ID']}','#{req.query['PASSWORD']}');")
     dbh.disconnect
     template =ERB.new( File.read('succsignup.erb') )
@@ -153,7 +153,7 @@ server.mount_proc("/edit"){|req, res|
   #不正がないかチェックするが、演習の見通しに割愛している
   # p req.query
   #dbhを作成し、データベース'account.db'に接続する
-  dbh = DBI.connect( 'DBI:SQLite3:account.db')
+  dbh = DBI.connect( 'DBI:PostgreSQL:account.db')
   #テーブルのデータを更新する(長いので折り返している)
   dbh.do("update account set ID=current_timestamp,\
     DATE='#{req.query['DATE']}',Name='#{req.query['Name']}',\
@@ -173,7 +173,7 @@ server.mount_proc("/delete"){|req, res|
   #不正がないかチェックするが、演習の見通しに割愛している
   p req.query
   #dbhを作成し、データベース'account.db'に接続する
-  dbh = DBI.connect( 'DBI:SQLite3:account.db')
+  dbh = DBI.connect( 'DBI:PostgreSQL:account.db')
 
   #テーブルからデータを削除する
   dbh.do("delete from account where ID='#{req.query['ID']}';")
