@@ -67,7 +67,7 @@ server.mount_proc("/entry"){ |req, res|
   #不正がないかチェックするが、演習の見通しのために割愛している
   # p req.query
   #dbhを作成し、データベース'account.db'に接続する
-  dbh=DBI.connect('DBI:SQLite3:account.db')
+  dbh=DBI.connect('DBI:PostgreSQL:account.db')
   #テーブルにデータを追加する（長いので折り返している）
   dbh.do("insert into account \
     values(current_timestamp,'#{req.query['DATE']}',\
