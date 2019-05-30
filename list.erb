@@ -1,0 +1,52 @@
+<%# -*- coding: utf-8 -*-%>
+<% require 'rubygems' %>
+<% require 'dbi'%>
+
+<% dbh = DBI.connect( 'DBI:SQLite3:account.db') %>
+<% sth = dbh.execute("select * from account order by DATE;") %>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;
+charset=UTF-8" />
+  <link rel="stylesheet" type="text/css" href="default.css">
+  <title>家計簿</title>
+</head>
+<body>
+<h1>家計簿</h1>
+<h2>家計簿の表示</h2>
+<p>処理する項目を選択してください|
+<a href="entry.erb">家計簿の登録</a>|
+
+<a href="index.html">ログアウトする</a></p>
+<hr>
+<form method="post" action="list">
+<table>
+
+  <tr>
+    <th>削除</th><th>修正</th>
+    
+    <th>更新日</th><th>日付</th><th>品名</th><th>値段</th><th>収入</th><th>残高</th>
+
+  </tr>
+
+<% sth.each do |row| %>
+
+  <tr>
+<%   row.each_with_name do |val, name|%>
+
+       <% w = val.gsub(/(\s)|""/,"&") %>
+<%     if name == 'ID' then %>
+       <td><input type="radio" name="operation" value=<%="#{w}.delete"%> /></td>
+       <td><input type="radio" name="operation" value=<%="#{w}.edit"%> /></td>
+       
+<%    end %>
+      <td><%= "#{val.to_s}" %></td>
+<%  end %>
+  </tr>
+<% end %>
+</table>
+<input type="submit" value="選択した処理を実行"/>
+</form>
+<hr>
+<% sth.finish %>
+<% dbh.disconnect %>

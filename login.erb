@@ -1,0 +1,39 @@
+<%# -*- coding: utf-8 -*-%>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; 
+charset=UTF-8" />
+  <link rel="stylesheet" type="text/css" href="default.css">
+  <title>家計簿</title>
+</head>
+<body>
+<h1>家計簿</h1>
+<h2>LOG IN</h2>
+<p>データを入力してください|
+
+<a href="index.html">戻る</a></p>
+<hr>
+
+<%# 登録対象データを入力するフォームを表示する　アクションはentry %>
+<form method="post" action="login">
+<table>
+  <tr>
+    <th>ID</th><th>PASSWORD</th>
+  </tr>
+
+<% ['ID', 'PASSWORD'].each do |name| %>
+  <tr>
+    <td><%= name %></td>
+    
+    <td><input type="text" name="<%=name%>" size="60" placeholder="未入力" /></td>
+  </tr>
+  
+<% end %>
+
+</table>
+<input type="submit" value="LOGIN" />
+</form>
+<a href="signup.erb">登録してない方はこちら</a></p>
+<hr>
+</body>
+</html>

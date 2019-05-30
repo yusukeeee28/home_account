@@ -1,0 +1,27 @@
+<%# -*- coding: utf-8 -*-%>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;
+charset=UTF-8" />
+  <link rel="stylesheet" type="text/css" href="default.css">
+  <title>家計簿</title>
+</head>
+<body>
+<h1>家計簿</h1>
+<h2>データ項目の削除</h2>
+<p>下記の項目を削除しました|
+<a href="list.erb">家計簿のデータ表示</a>|
+</p>
+<hr>
+<table>
+  <th>項目名</th><th>削除データ</th>
+<% ['DATE','Name','Value','Income','Balance'].each do |name|%>
+  <tr>
+    <td><%= name %></td>
+    <td><%= req.query[name] %></td>
+  </tr>
+<% end %>
+</table>
+<hr>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<%# -*- coding: utf-8 -*-%>
+<% require 'rubygems' %>
+<% require 'dbi' %>
+
+<% dbh = DBI.connect( 'DBI:SQLite3:account.db') %>
+
+<% row = dbh.select_one("select * from account where ID=\'#{target_id}\'") %>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;
+charset=UTF-8" />
+  <link rel="stylesheet" type="text/css" href="default.css">
+  <title>家計簿</title>
+</head>
+<body>
+<h1>家計簿</h1>
+<h2>データ項目の削除</h2>
+<p>このデータを削除します|
+<a href="list.erb">家計簿データの表示</a>|
+</p>
+<hr>
+<form method="post" action="delete">
+<input type="hidden" name="id" value="<%= target_id %>" />
+<table>
+  <th>項目名</th><th>削除データ</th>
+<%   row.each_with_name do |val, name| %>
+  <tr>
+      <td><%= name %></td><td><%= val.to_s %></td>
+      <input type="hidden" name="<%= name %>" value="<%= val.to_s %>" />
+  </tr>
+<%   end %>
+</table>
+<input type="submit" value="削除を実行" />
+</form>
+<hr>
+</body>
+</html>
