@@ -1,0 +1,2 @@
+production:
+  url: <%= ENV['postgres://rqwbwszsknchnn:0be12cb76be0dc401df42aa9ee20592d8c3a1db6ae182729d7c0d27bd4bd86a3@ec2-54-225-116-36.compute-1.amazonaws.com:5432/d2qh3tvh61quh9'] %>
